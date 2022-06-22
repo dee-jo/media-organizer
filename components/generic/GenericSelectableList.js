@@ -1,17 +1,14 @@
 import { StyleSheet, Text, SafeAreaView, SectionList, FlatList, View, TouchableOpacity, StatusBar } from 'react-native';
-import { useContext, useState } from 'react';
-import { PlaylistsContext } from '../../store/context/playlists-context';
+import { useState } from 'react';
 
 
-const PlaylistList = ({onPlaylistSelect}) => {
-  const playlistsContext = useContext(PlaylistsContext);
-  const playlists = playlistsContext.playlists;
+const GenericSelectableList = ({onItemSelect, list}) => {
 
   const [selectedId, setSelectedId] = useState(null);
 
-  const onPlaylistClicked = (id) => {
+  const onItemPress = (id) => {
     setSelectedId(id);
-    onPlaylistSelect(id);
+    onItemSelect(id);
   }
 
   const renderItem = ({ item }) => {
@@ -20,19 +17,20 @@ const PlaylistList = ({onPlaylistSelect}) => {
 
     return (
       <Item
-        playlistName={item.playlistName}
+        name={item.name}
         item={item}
-        onPress={() => onPlaylistClicked(item.id)}
+        onPress={() => onItemPress(item.id)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
     );
   }
 
-  const Item = ({ item, onPress, backgroundColor, textColor, playlistName }) => {
+  const Item = ({ item, onPress, backgroundColor, textColor, name }) => {
     return (
       <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-        <Text style={[styles.title, textColor]}>{playlistName}</Text>
+        <Text style={[styles.title, textColor]}>{name}</Text>
+   
       </TouchableOpacity>
     );
   }
@@ -40,7 +38,7 @@ const PlaylistList = ({onPlaylistSelect}) => {
   return (
     <SafeAreaView style={styles.container_1}>
       <FlatList
-        data={playlists}
+        data={list}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
@@ -64,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlaylistList;
+export default GenericSelectableList;
