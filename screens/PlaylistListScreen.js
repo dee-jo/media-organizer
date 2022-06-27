@@ -8,9 +8,10 @@ const PlaylistScreen = ({navigation}) => {
     navigation.navigate("NewPlaylistScreen");
   }
 
-  const onPlaylistSelect = (playlistId) => {
+  const onPlaylistSelect = (playlist) => {
+    console.log('playlistId in onPlaylistSelect: ', playlist.id);
     navigation.navigate("PlaylistViewScreen", {
-      playlistId
+      playlist
     });
   }
 
