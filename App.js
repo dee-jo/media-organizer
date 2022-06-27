@@ -7,6 +7,8 @@ import NewPlaylistScreen from './screens/NewPlaylistScreen';
 import PlaylistViewScreen from './screens/PlaylistViewScreen';
 import AddFileScreen from './screens/AddFileScreen';
 import FileViewScreen from './screens/FileViewScreen';
+import DirectoryViewScreen from './screens/DirectoryViewScreen';
+import DirectoryListScreen from './screens/DirectoryListScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -22,6 +24,9 @@ const App = () => {
           <Stack.Screen name="PlaylistViewScreen" component={PlaylistViewScreen}/>
           <Stack.Screen name="AddFileScreen" component={AddFileScreen}/>
           <Stack.Screen name="FileViewScreen" component={FileViewScreen}/>
+          <Stack.Screen name="DirectoryViewScreen" component={DirectoryViewScreen}/>
+          <Stack.Screen name="DirectoryListScreen" component={DirectoryListScreen}/>
+
         </Stack.Navigator>
       </NavigationContainer>
     </PlaylistsContextProvider>

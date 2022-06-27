@@ -3,7 +3,8 @@ import { createContext, useState } from 'react';
 export const PlaylistsContext = createContext({
   playlists: [],
   addPlaylist: (playlist) => {},
-  removePlaylist: (id) => { }
+  addFilesToPlaylist: (playlistId, filelist) => {},
+  removePlaylist: (playlistId, filelist) => { }
 });
 
 const PlaylistsContextProvider = ({children}) => {
@@ -14,48 +15,48 @@ const PlaylistsContextProvider = ({children}) => {
       dateCreated: '15-03-23',
       description: 'blsdfjslkdfjiofosifjsiofjsddjsf hdasdfsifp  dfjaskfj jfklsjfkl',
       linkedFiles: [
-        {
-          name: 'file1',
-          id: 'bd7111ea-c1b1-46c2-aed5-3ad53abb28ba',
-          path: './1',
-          fileType: 'mp3',
-          comment: "here's a comment",
-          image: {
-            name: "image1",
-            imagePath: "image path 1"
-          },
-          category: {
-            name: 'rock'
-          }
-        },
-        {
-          name: 'file2',
-          id: 'bd7222acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          path: './2',
-          fileType: 'wav',
-          comment: "here's a comment 2",
-          image: {
-            name: "image2",
-            imagePath: "image path 2"
-          },
-          category: {
-            name: 'classical'
-          }
-        },
-        {
-          name: 'file3',
-          id: 'bd7333acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          path: './3',
-          fileType: 'wav',
-          comment: "here's a comment 3",
-          image: {
-            name: "image3",
-            imagePath: "image path 3"
-          },
-          category: {
-            name: 'pop'
-          }
-        },
+      //   {
+      //     name: 'file1',
+      //     id: 'bd7111ea-c1b1-46c2-aed5-3ad53abb28ba',
+      //     path: './1',
+      //     fileType: 'mp3',
+      //     comment: "here's a comment",
+      //     image: {
+      //       name: "image1",
+      //       imagePath: "image path 1"
+      //     },
+      //     category: {
+      //       name: 'rock'
+      //     }
+      //   },
+      //   {
+      //     name: 'file2',
+      //     id: 'bd7222acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      //     path: './2',
+      //     fileType: 'wav',
+      //     comment: "here's a comment 2",
+      //     image: {
+      //       name: "image2",
+      //       imagePath: "image path 2"
+      //     },
+      //     category: {
+      //       name: 'classical'
+      //     }
+      //   },
+      //   {
+      //     name: 'file3',
+      //     id: 'bd7333acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      //     path: './3',
+      //     fileType: 'wav',
+      //     comment: "here's a comment 3",
+      //     image: {
+      //       name: "image3",
+      //       imagePath: "image path 3"
+      //     },
+      //     category: {
+      //       name: 'pop'
+      //     }
+      //   },
       ]}, 
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad5888b28ba',
@@ -63,20 +64,20 @@ const PlaylistsContextProvider = ({children}) => {
       dateCreated: '11-02-23',
       description: 'blsdfjslkdfjiofosifjsiofjsdlk kfdjksdfjksjfksjfklsjfkl',
       linkedFiles: [
-          {
-            name: 'file1',
-            id: 'bd7111acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            path: './1',
-            fileType: 'mp3',
-            comment: "here's a comment",
-            image: {
-              name: "image1",
-              imagePath: "image path 1"
-            },
-            category: {
-              name: 'rock'
-            }
-          }
+          // {
+          //   name: 'file1',
+          //   id: 'bd7111acbea-c1b1-46c2-aed5-3ad53abb28ba',
+          //   path: './1',
+          //   fileType: 'mp3',
+          //   comment: "here's a comment",
+          //   image: {
+          //     name: "image1",
+          //     imagePath: "image path 1"
+          //   },
+          //   category: {
+          //     name: 'rock'
+          //   }
+          // }
       ]}, 
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad70y3b28ba',
@@ -84,20 +85,20 @@ const PlaylistsContextProvider = ({children}) => {
       dateCreated: '11-04-23',
       description: 'blsdfjslkdffdsf sdfsdf',
       linkedFiles: [
-        {
-          name: 'file1',
-          id: 'bd7111acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          path: './1',
-          fileType: 'mp3',
-          comment: "here's a comment",
-          image: {
-            name: "image1",
-            imagePath: "image path 1"
-          },
-          category: {
-            name: 'rock'
-          }
-        }
+        // {
+        //   name: 'file1',
+        //   id: 'bd7111acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        //   path: './1',
+        //   fileType: 'mp3',
+        //   comment: "here's a comment",
+        //   image: {
+        //     name: "image1",
+        //     imagePath: "image path 1"
+        //   },
+        //   category: {
+        //     name: 'rock'
+        //   }
+        // }
     ]
   }
   ]);
@@ -111,9 +112,63 @@ const PlaylistsContextProvider = ({children}) => {
       currentPlaylists.filter((playlist) => playlist.id !== id));
   }
 
+  const addFilesToPlaylist = (playlistId, filelist) => {
+    setPlaylists(currentPlaylists => {
+      //console.log('currentPlaylists: ', currentPlaylists);
+      //const playlistUpdate = currentPlaylists.find(playlist => playlistId === playlist.id);
+      // console.log('playlistId: ', playlistId);
+      // console.log('playlistUpdate: ', playlistUpdate);
+      const updatedFiles = [];
+      filelist.forEach((file) => {
+        updatedFiles.push(
+          {
+            albumId: file.albumId,
+            checked: file.checked,
+            creationTime: file.creationTime,
+            duration: file.duration,
+            filename: file.filename,
+            id: file.id,
+            mediaType: file.mediaType,
+            modificationTime: file.modificationTime,
+            uri: file.uri,
+            category: {
+              name: ""
+            },
+            comment: "",
+            image: {
+              name: "",
+              imagePath: ""
+            },
+          },
+        )
+      });
+      // return currentPlaylists.map(playlist => {
+      //   if (playlist.id === playlistId) {
+      //     playlist.linkedFiles.concat(updatedFiles);
+      //   }
+      // })
+
+      
+      return currentPlaylists.map((playlist) => {
+        if (playlist.id === playlistId) {
+          return {
+            ...playlist,
+            linkedFiles: updatedFiles
+          }
+        } else {
+          return {
+            ...playlist
+          }
+        }
+      });
+    })
+    console.log('currentPlaylists after the update: ', playlists);
+  }
+
   const value = {
     playlists: playlists,
     addPlaylist: addPlaylist,
+    addFilesToPlaylist: addFilesToPlaylist,
     removePlaylist: removePlaylist
   };
 

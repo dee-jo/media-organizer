@@ -1,9 +1,9 @@
-import { StyleSheet, Text, SafeAreaView, SectionList, FlatList, View, TouchableOpacity, StatusBar } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, SectionList, FlatList, View, TouchableOpacity } from 'react-native';
+import { CheckBox } from '@react-native-community/checkbox';
 import { useState } from 'react';
-import GenericButtonGroup from '../generic/GenericButtonGroup';
+import {GenericButtonGroup} from '../generic/GenericButtonGroup';
 
-
-const GenericSelectableList = ({onItemSelect, list}) => {
+const FilesInDirectoryList = ({onItemSelect, list}) => {
 
   const [selectedId, setSelectedId] = useState(null);
 
@@ -28,10 +28,17 @@ const GenericSelectableList = ({onItemSelect, list}) => {
   }
 
   const Item = ({ item, onPress, backgroundColor, textColor, name }) => {
+
+    const [isSelected, setSelection] = useState(false);
+    const onFileSelected = (value) => {
+      console.log('file selected: ', value);
+      setSelection(value)
+      
+    }
+
     return (
       <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-        <Text style={[styles.title, textColor]}>{name}</Text>
-        {/* <GenericButtonGroup /> */}
+        <Text style={[styles.title, textColor]}>{name}</Text> 
       </TouchableOpacity>
     );
   }
@@ -63,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GenericSelectableList;
+export default FilesInDirectoryList;

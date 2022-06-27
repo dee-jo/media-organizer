@@ -9,9 +9,15 @@ const PlaylistList = ({onPlaylistSelect}) => {
 
   const [selectedId, setSelectedId] = useState(null);
 
+<<<<<<< HEAD
   const onPlaylistClicked = (id) => {
     setSelectedId(id);
     onPlaylistSelect(id);
+=======
+  const onPlaylistClicked = (playlist) => {
+    setSelectedId(playlist.id);
+    onPlaylistSelect(playlist);
+>>>>>>> load-media-files
   }
 
   const renderItem = ({ item }) => {
@@ -22,7 +28,7 @@ const PlaylistList = ({onPlaylistSelect}) => {
       <Item
         playlistName={item.playlistName}
         item={item}
-        onPress={() => onPlaylistClicked(item.id)}
+        onPress={() => onPlaylistClicked(item)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

@@ -4,10 +4,14 @@ import { Button } from 'react-native-elements';
 
 const PlaylistViewScreen = ({route, navigation}) => {
 
-  const { playlistId } = route.params;
-
+  const { playlist } = route.params;
+  console.log('in PlaylistViewScreen, playlist: ', playlist);
   const onAddFilePress = () => {
-    navigation.navigate("AddFileScreen", playlistId);
+    navigation.navigate("PickFileScreen", {playlistId: playlist.id});
+  }
+
+  const onFindFilesPress = () => {
+    navigation.navigate("DirectoryListScreen", {playlistId: playlist.id});
   }
 
   const onFileSelect = (fileId) => {
@@ -16,9 +20,13 @@ const PlaylistViewScreen = ({route, navigation}) => {
 
   return(
     <View style={styles.container}>
-      <Text>Hello from Playlist View</Text>
-      <Filelist playlistId={playlistId} onFileSelect={onFileSelect} />
-      <Button title="Add File" type='outline' onPress={onAddFilePress}/>
+      <Text>Hello from {playlist.playlistName}</Text>
+      {/* <Button title="Pick File" type='outline' onPress={onAddFilePress}/> */}
+      <Button title={`Add Files To Playlist ${playlist.playlistName}`} type='outline' onPress={onFindFilesPress}/>
+      <Filelist playlistId={playlist.id} onFileSelect={onFileSelect} />
+      <Text>You can either find media files on your device, or pick a single file</Text>
+      
+      
     </View>
   )
 }
