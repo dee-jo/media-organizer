@@ -9,7 +9,7 @@ const Filelist = ({ playlistId, onFileSelect }) => {
   const linkedFiles = playlistsContext.playlists.find(playlist => playlist.id === playlistId).linkedFiles;
   
   return(
-    <GenericSelectableList onItemSelect={onFileSelect} list={linkedFiles} />
+    <GenericSelectableList onItemSelect={onFileSelect} fileList={linkedFiles} playlistId={playlistId} />
   )
 }
 

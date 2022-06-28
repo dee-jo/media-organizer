@@ -34,7 +34,7 @@ const DirectoryListScreen = ({route, navigation}) => {
   useEffect(() => {
       getAllDirsOnDevice()
       .then((dirs) => {
-        console.log(dirs);
+        //console.log(dirs);
         setLocalDirs(dirs);
         setFilteredDirs(dirs)
       })

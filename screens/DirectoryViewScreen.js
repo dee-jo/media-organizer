@@ -11,8 +11,8 @@ const DirectoryViewScreen = ({route, navigation}) => {
 
   const playlistsContext = useContext(PlaylistsContext);
   const { playlistId } = route.params;
-  console.log('playlistId in DirectoryViewScreen: ', playlistId);
-  console.log('route.params: ', route.params);
+  //console.log('playlistId in DirectoryViewScreen: ', playlistId);
+  //console.log('route.params: ', route.params);
   const { assetCount, id, title, type } = route.params;
   const [ dirId, setDirId ] = useState(id.toString());
   const [ dirTitle, setDirTitle ] = useState(title);
@@ -78,7 +78,7 @@ const DirectoryViewScreen = ({route, navigation}) => {
    }
 
   const onCheckBoxPress = (file) => {
-    console.log('file value in press handler:', file);
+    //console.log('file value in press handler:', file);
       if (file.mediaType === 'audio') {
         const audioFilesUpdated = audioFiles.map(af => {
           if (af.id === file.id) {
@@ -90,7 +90,7 @@ const DirectoryViewScreen = ({route, navigation}) => {
           return {...af}
           
         })
-        console.log('audio files after changed checked status: ', audioFilesUpdated);
+        //console.log('audio files after changed checked status: ', audioFilesUpdated);
         setAudioFiles(audioFilesUpdated); 
         
       }
@@ -105,7 +105,7 @@ const DirectoryViewScreen = ({route, navigation}) => {
           return {...af}
           
         })
-        console.log('video files after changed checked status: ', videoFilesUpdated);
+        //console.log('video files after changed checked status: ', videoFilesUpdated);
         setVideoFiles(videoFilesUpdated); 
         
       }

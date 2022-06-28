@@ -9,15 +9,9 @@ const PlaylistList = ({onPlaylistSelect}) => {
 
   const [selectedId, setSelectedId] = useState(null);
 
-<<<<<<< HEAD
-  const onPlaylistClicked = (id) => {
-    setSelectedId(id);
-    onPlaylistSelect(id);
-=======
   const onPlaylistClicked = (playlist) => {
     setSelectedId(playlist.id);
     onPlaylistSelect(playlist);
->>>>>>> load-media-files
   }
 
   const renderItem = ({ item }) => {

@@ -95,7 +95,7 @@ const AddFileScreen = ({route, navigation}) => {
 
     // const fileInfo = await FileSystem.getContentUriAsync(uri);
     const fileInfo = await FileSystem.getContentUriAsync(uri);
-    console.log(fileInfo);
+    //console.log(fileInfo);
     // result: {
     //   "mimeType": "audio/mp4",
     //   "name": "Wśród Nocnej Ciszy",

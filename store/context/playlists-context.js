@@ -4,10 +4,15 @@ export const PlaylistsContext = createContext({
   playlists: [],
   addPlaylist: (playlist) => {},
   addFilesToPlaylist: (playlistId, filelist) => {},
-  removePlaylist: (playlistId, filelist) => { }
+  removePlaylist: (playlistId, filelist) => {},
+  addFileComment: (playlistId, fileId, comment) => {},
+  addFileCategory: (playlistId, fileId, category) => {},
+  addFileImage: (playlistId, fileId, imageURI) => {},
+  deleteFile: (playlistId, fileId) => {}
 });
 
 const PlaylistsContextProvider = ({children}) => {
+  const [ updatedFile, setUpdatedFile ] = useState(null);
   const [playlists, setPlaylists] = useState([
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -131,9 +136,7 @@ const PlaylistsContextProvider = ({children}) => {
             mediaType: file.mediaType,
             modificationTime: file.modificationTime,
             uri: file.uri,
-            category: {
-              name: ""
-            },
+            category: "",
             comment: "",
             image: {
               name: "",
@@ -162,14 +165,94 @@ const PlaylistsContextProvider = ({children}) => {
         }
       });
     })
-    console.log('currentPlaylists after the update: ', playlists);
+    //console.log('currentPlaylists after the update: ', playlists);
+  }
+
+  const addFileCategory = (playlistId, fileId, category) => {
+    const updatedFile = {};
+    const updatedPlaylists = playlists.map(playlist => {
+      console.log('before updating category: ', playlist.linkedFiles);
+        if (playlist.id === playlistId) {
+          return {
+            ...playlist,
+            linkedFiles: playlist.linkedFiles.map(lf => {
+              if (lf.id === fileId) {
+                const updated = {
+                  ...lf,
+                  category
+                }
+                setUpdatedFile(updated)
+                return updated;
+              }
+              else {
+                return {
+                  ...lf
+                }
+              }
+            })
+          }
+        }
+        else {
+          return {
+            ...playlist
+          }
+        }
+      })
+      console.log(updatedFile);
+      setPlaylists(updatedPlaylists);
+      return updatedFile;
+  }
+
+  const addFileComment = (playlistId, fileId, comment) => {
+    const updatedFile = {};
+    const updatedPlaylists = playlists.map(playlist => {
+      console.log('before updating comment: ', playlist.linkedFiles);
+        if (playlist.id === playlistId) {
+          return {
+            ...playlist,
+            linkedFiles: playlist.linkedFiles.map(lf => {
+              if (lf.id === fileId) {
+                const updated = {
+                  ...lf,
+                  comment
+                }
+                setUpdatedFile(updated)
+                return updated;
+              }
+              else {
+                return {
+                  ...lf
+                }
+              }
+            })
+          }
+        }
+        else {
+          return {
+            ...playlist
+          }
+        }
+      })
+      console.log(updatedFile);
+      setPlaylists(updatedPlaylists);
+      return updatedFile;
+  }
+ 
+  const addFileImage = (playlistId, fileId, imageURI) => {
+
+  }
+
+  const deleteFile = (playlistId, fileId) => {
+
   }
 
   const value = {
     playlists: playlists,
     addPlaylist: addPlaylist,
     addFilesToPlaylist: addFilesToPlaylist,
-    removePlaylist: removePlaylist
+    removePlaylist: removePlaylist,
+    addFileCategory: addFileCategory,
+    addFileComment: addFileComment
   };
 
   return (<PlaylistsContext.Provider value={value} >{children}</PlaylistsContext.Provider>);

@@ -3,13 +3,14 @@ import { useState } from 'react';
 import GenericButtonGroup from '../generic/GenericButtonGroup';
 
 
-const GenericSelectableList = ({onItemSelect, list}) => {
+const GenericSelectableList = ({onItemSelect, fileList, playlistId}) => {
 
   const [selectedId, setSelectedId] = useState(null);
 
-  const onItemPress = (id) => {
-    setSelectedId(id);
-    onItemSelect(id);
+  const onItemPress = (file) => {
+    //console.log('file in onItemPress: ', file);
+    setSelectedId(file.id);
+    onItemSelect(file);
   }
 
   const renderItem = ({ item }) => {
@@ -20,7 +21,7 @@ const GenericSelectableList = ({onItemSelect, list}) => {
       <Item
         name={item.filename}
         item={item}
-        onPress={() => onItemPress(item.id)}
+        onPress={() => onItemPress(item)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -39,7 +40,7 @@ const GenericSelectableList = ({onItemSelect, list}) => {
   return (
     <SafeAreaView style={styles.container_1}>
       <FlatList
-        data={list}
+        data={fileList}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

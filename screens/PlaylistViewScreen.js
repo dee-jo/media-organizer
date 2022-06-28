@@ -14,8 +14,8 @@ const PlaylistViewScreen = ({route, navigation}) => {
     navigation.navigate("DirectoryListScreen", {playlistId: playlist.id});
   }
 
-  const onFileSelect = (fileId) => {
-    navigation.navigate("FileViewScreen", fileId);
+  const onFileSelect = (file) => {
+    navigation.navigate("FileViewScreen", {...file, playlistId: playlist.id, playlistName: playlist.playlistName});
   }
 
   return(

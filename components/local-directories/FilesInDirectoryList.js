@@ -31,7 +31,7 @@ const FilesInDirectoryList = ({onItemSelect, list}) => {
 
     const [isSelected, setSelection] = useState(false);
     const onFileSelected = (value) => {
-      console.log('file selected: ', value);
+      //console.log('file selected: ', value);
       setSelection(value)
       
     }

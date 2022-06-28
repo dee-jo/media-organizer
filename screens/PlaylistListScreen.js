@@ -8,16 +8,10 @@ const PlaylistScreen = ({navigation}) => {
     navigation.navigate("NewPlaylistScreen");
   }
 
-<<<<<<< HEAD
-  const onPlaylistSelect = (playlistId) => {
-    navigation.navigate("PlaylistViewScreen", {
-      playlistId
-=======
   const onPlaylistSelect = (playlist) => {
     console.log('playlistId in onPlaylistSelect: ', playlist.id);
     navigation.navigate("PlaylistViewScreen", {
       playlist
->>>>>>> load-media-files
     });
   }
 
