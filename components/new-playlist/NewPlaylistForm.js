@@ -18,7 +18,7 @@ const NewPlaylistForm = ({onPlaylistCreated}) => {
       playlistsContext.addPlaylist({
         id: uuid.v4(),
         playlistName,
-        dateCreated: new Date(),
+        dateCreated: new Date().toDateString(),
         description: playlistDescription,
         linkedFiles: []
       })

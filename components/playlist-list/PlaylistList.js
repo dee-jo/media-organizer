@@ -14,12 +14,15 @@ const PlaylistList = ({onPlaylistSelect}) => {
     onPlaylistSelect(playlist);
   }
 
+  //console.log('in PlaylistList: playlists: ', playlists);
+
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
     const color = item.id === selectedId ? 'white' : 'black';
 
     return (
       <Item
+        playlistDescription={item.description}
         playlistName={item.playlistName}
         item={item}
         onPress={() => onPlaylistClicked(item)}
@@ -29,10 +32,11 @@ const PlaylistList = ({onPlaylistSelect}) => {
     );
   }
 
-  const Item = ({ item, onPress, backgroundColor, textColor, playlistName }) => {
+  const Item = ({ item, onPress, backgroundColor, textColor, playlistName, playlistDescription }) => {
     return (
       <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
         <Text style={[styles.title, textColor]}>{playlistName}</Text>
+        {/* <Text style={textColor}>{playlistDescription}</Text> */}
       </TouchableOpacity>
     );
   }

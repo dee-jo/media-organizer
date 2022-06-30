@@ -2,28 +2,29 @@ import { StyleSheet, View, Button } from 'react-native';
 import PlaylistList from '../components/playlist-list/PlaylistList';
 
 
-const PlaylistScreen = ({navigation}) => {
+const PlaylistListScreen = ({navigation}) => {
 
   const onPressCreatePlaylist = () => {
     navigation.navigate("NewPlaylistScreen");
   }
 
   const onPlaylistSelect = (playlist) => {
-    console.log('playlistId in onPlaylistSelect: ', playlist.id);
+    //console.log('playlistId in onPlaylistSelect: ', playlist.id);
     navigation.navigate("PlaylistViewScreen", {
-      playlist
+      playlistId: playlist.id
     });
   }
 
   return (
       <View style={styles.container}>
-      <PlaylistList onPlaylistSelect={onPlaylistSelect} />
-      <Button
+        <Button
         onPress={()=>onPressCreatePlaylist()}
         title="Create New Playlist"
         color="#841584"
+        buttonStyle={{height: 40}}
         accessibilityLabel="Learn more about this purple button"
       />
+      <PlaylistList onPlaylistSelect={onPlaylistSelect} />
     </View>
 
   );
@@ -88,4 +89,4 @@ const styles = StyleSheet.create({
 //   }
 // });
 
-export default PlaylistScreen;
+export default PlaylistListScreen;

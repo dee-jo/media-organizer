@@ -2,11 +2,12 @@ import { SafeAreaView, Text, StyleSheet, Button, FlatList, TouchableOpacity, Tex
 import { useEffect, useState, useContext } from 'react';
 import { PlaylistsContext } from '../store/context/playlists-context';
 import { findMediaFiles, getAllDirsOnDevice } from '../components/file-search/_fileSearch';
+import { Card } from 'react-native-elements';
 
 const DirectoryListScreen = ({route, navigation}) => {
 
-  const { playlistId } = route.params; 
-  console.log('playlistId in DirectoryListScreen: ', playlistId);
+  const { playlist } = route.params; 
+  console.log('playlistId in DirectoryListScreen: ', playlist.id);
 
   //const playlistsContext = useContext(PlaylistsContext);
   const [ localDirs, setLocalDirs ] = useState(null);
@@ -28,7 +29,7 @@ const DirectoryListScreen = ({route, navigation}) => {
   const onDirectorySelected = (dir) => {
     //console.log(dir)
     setSelectedId(dir);
-    navigation.navigate("DirectoryViewScreen", {...dir, playlistId: playlistId })
+    navigation.navigate("DirectoryViewScreen2", {...dir, playlist })
   }
 
   useEffect(() => {
@@ -80,7 +81,8 @@ const DirectoryListScreen = ({route, navigation}) => {
 
   return(
     <SafeAreaView>
-      <Text>Type Directory Name</Text>
+      <Card>
+      <Card.Title>Type Directory Name to search</Card.Title>
       <TextInput
         style={styles.input}
         onChangeText={(value) => onSearchInputChange(value)}
@@ -90,6 +92,7 @@ const DirectoryListScreen = ({route, navigation}) => {
       {filteredDirs && renderDirs()}
       {/* <PermissionsAndroidComponent /> */}
       <Button title="Find Files" type='outline' onPress={getAllDirsOnDevice}/>
+      </Card>
     </SafeAreaView>
   )
 }
