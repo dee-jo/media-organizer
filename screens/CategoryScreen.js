@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, ScrollView, Alert } from 'react-native';
 import { Card, Button, Icon, ListItem, Avatar } from 'react-native-elements';
 import { useContext, useEffect, useState } from 'react';
 import { PlaylistsContext } from '../store/context/playlists-context';
@@ -24,9 +24,20 @@ const CategoryScreen = ({route, navigation}) => {
   }
 
   const onSaveCategory = () => {
-    playlistContext.addCategory(categoryInput);
-    setCategoryInput("")
-    setOpenCategoryForm(false);
+    const wasAdded = playlistContext.addCategory(categoryInput);
+    if(!wasAdded) {
+      Alert.alert(
+        "",`The category "${categoryInput}" already exists!`,
+        [
+          { text: "OK", onPress: () => {
+              setCategoryInput("")
+              setOpenCategoryForm(false);
+            } 
+          }
+        ]
+      );
+    }
+
   }
 
   return (

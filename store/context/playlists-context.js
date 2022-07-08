@@ -59,6 +59,10 @@ const PlaylistsContextProvider = ({children}) => {
     const categoryLower = category.toLowerCase();
     if (!categories.includes(categoryLower)) {
       setCategories([...categories, categoryLower])
+      return true;
+    }
+    else {
+      return false;
     }
   
   }
