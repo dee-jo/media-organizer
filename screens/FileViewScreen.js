@@ -33,7 +33,7 @@ const FileViewScreen = ({route, navigation}) => {
       playlistName: route.params.playlistName,
       playlistId: route.params.playlistId
     });
-    if (file.image.imagePath) {
+    if (file.image.imagePath != "") {
       setImageURI(file.image.imagePath);
     }
   }
@@ -125,32 +125,8 @@ const FileViewScreen = ({route, navigation}) => {
         </> : <Text>No categories assigned to this file</Text>
       }
       <TouchableOpacity style={styles.button} onPress={onSaveCategory}>
-          <Text style={styles.text}>Add Category</Text>
+          <Text style={styles.text}>Manage File Categories</Text>
         </TouchableOpacity>
-      {/* {!file.category || showChangeCategory ? (
-          <>
-            <FileTextInput
-              numberOfLines={1}
-              onChangeText={text => setCategoryInput(text)}
-              onPress={()=>setCategoryInput('')}
-              value={categoryInput}
-              style={{padding: 10}}
-            />
-            <Divider />
-            <TouchableOpacity style={styles.button} onPress={onSaveCategory}>
-                <Text style={styles.text}>Add Category</Text>
-            </TouchableOpacity>
-          </>
-      )
-       : 
-        <>
-        <Card.Title>Category: {file.category}</Card.Title>
-        <TouchableOpacity style={styles.button} onPress={()=>setChangeCategory(true)}>
-          <Text style={styles.text}>Change Category</Text>
-        </TouchableOpacity>
-      </>  */}
-       
-      
     
     {!file.comment || showChangeComment ?
      (
