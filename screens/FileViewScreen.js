@@ -4,6 +4,8 @@ import { useIsFocused } from '@react-navigation/native';
 import { useState, useContext, useEffect } from 'react';
 import { PlaylistsContext } from '../store/context/playlists-context';
 import { pickImage } from '../components/file-search/_fileSearch';
+import { Audio } from 'expo-av';
+import { Video } from 'expo-av';
 
 const FileViewScreen = ({route, navigation}) => {
 
@@ -14,15 +16,23 @@ const FileViewScreen = ({route, navigation}) => {
   const [ showChangeCategory, setChangeCategory ] = useState(false);
   const [ showChangeComment, setChangeComment ] = useState(false);
   const [ commentInput, setCommentInput ] = useState('Tap to Add Comment');
-  const [ file, setFile ] = useState(null); // 
+  const [ file, setFile ] = useState(null);
   const [imageURI, setImageURI] = useState();
+  const [sound, setSound] = useState();
   //console.log('FileViewScreen, file, playlist: ', route.params);
 
   useEffect(() => {
-    
     isFocused && pullFileFromContext();
     }
   ,[isFocused]);
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync(); }
+      : undefined;
+  }, [sound]);
 
   const pullFileFromContext = () => {
     const playlistFiles = playlistsContext.playlists.find(playlist => playlist.id === playlistId).linkedFiles;
@@ -103,11 +113,31 @@ const FileViewScreen = ({route, navigation}) => {
     setChangeComment(false);
   }
 
+  const onPlayAudio = async (uri) => {
+    console.log('Loading Sound');
+    try {
+      //const soundPath = require("file:///storage/emulated/0/Android/media/com.Slack/Notifications/Slack - Ding.mp3");
+      //console.log(uri);
+      //const { sound } = await Audio.Sound.createAsync(require(uri));
+      //setSound(sound);
+      //console.log('Playing Sound');
+      //await sound.playAsync();
+      const playSound = new Audio.Sound();
+      playSound.loadAsync({uri}, {shouldPlay: true});
+    }
+    catch(e) {
+      console.log("Could not play sound for file: ", uri, "error: ", e);
+    }
+  }
+
   const renderFile = () => {
     console.log('in render file: ', file);
     return (
       <ScrollView>
       <Card>
+      <TouchableOpacity style={styles.button} onPress={() => onPlayAudio(file.uri)}>
+        <Text style={styles.text}>Play Audio</Text>
+      </TouchableOpacity>
       <Card.Title>File Name: {file.filename}</Card.Title>
       <Card.Divider/>
       <Card.Title>Playlist Name: {file.playlistName}</Card.Title>
